@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Things i need to do...</h1>
+    {% for item in items %}
+    <table>
+        {% if item.done %}
+        <tr>
+            <td><strike>{{ item.name }}</strike></td>
+
+            {% else %}
+
+            <td> {{ item.name }} </td>
+            {% endif %}
+            <td>
+                <form action="toggle/{{ item.id }}" method="POST">{% csrf_token %}<input type="submit" value="toggle"></form>
+            </td>
+            <td>
+                <form method="GET" action="edit/{{ item.id }}"><input type="submit" value="Edit"></form>
+            </td>
+        </tr>
+    </table>
+    {% empty %}
+    <h1>You have Nothing to do..</h1>
+    {% endfor %}
+    <a href="add">Add an Item</a>
+</body>
+
+</html>
